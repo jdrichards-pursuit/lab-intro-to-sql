@@ -26,7 +26,7 @@ You think to yourself, there has to be a way to help! To make things better... w
 
 Open the `regifter.sql` file with your text editor
 
-There is a prompt for each SQL command you should write. `\echo` will print the instructions ot he console.
+There is a prompt for each SQL command you should write. `\echo` will print the instructions out in the console.
 
 ```sql
 --
