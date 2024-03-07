@@ -130,6 +130,7 @@ SELECT COUNT(*) FROM gifts where gift LIKE '%candle%';
 \echo Get the AVEREAGE price from all the gifts
 --
 
+-- SELECT AVG(price) FROM gifts;
 SELECT AVG(price) FROM gifts;
 
 -- 
