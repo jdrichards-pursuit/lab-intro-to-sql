@@ -23,7 +23,7 @@ CREATE TABLE
 -- 
 \echo See details of the table you created
 -- 
-\d gifts
+\d gifts;
 
 -- 
 \echo Alter the table so that the column value is changed to price 
@@ -34,9 +34,9 @@ ALTER TABLE gifts RENAME value TO price;
 \echo Insert a peach candle, given by 'Santa' thats price is 9 and has been previously regifted
 -- 
 INSERT INTO
-gifts ( id SERIAL PRIMARY KEY,  gift TEXT NOT NULL, giver TEXT, value INT, previously_regifted BOOL )
+gifts (gift, giver, price, previously_regifted)
 VALUES
-('peach candle', 'Santa', 9, TRUE)
+('peach candle', 'Santa', 9, TRUE);
 
 --
 \echo Query for all the columns in your gifts table
@@ -53,8 +53,8 @@ VALUES
 ('cinnamon candle', 'Nick', '19', TRUE),
 ('soap on a rope', 'Rudolf', '29', FALSE),
 ('potpurri', 'Elf on the Shelf', '39', TRUE),
-('mango candle', 'The Boss', '49', FALSE)
-;
+('mango candle', 'The Boss', '49', FALSE);
+
 
 INSERT INTO gifts (gift, giver, price, previously_regifted)
 VALUES 
@@ -94,7 +94,7 @@ SELECT * FROM gifts WHERE giver = 'Santa' OR price > 30;
 --
 \echo Query for every gift whose giver is NOT Santa
 --
-SELECT * FROM gifts WHERE giver IS NOT 'Santa';
+SELECT * FROM gifts WHERE giver != 'Santa';
 
 --
 \echo Update the second gift to have a price of 2999
@@ -104,7 +104,8 @@ UPDATE gifts SET price = 2999 WHERE id = 2;
 --
 \echo Query for the updated item
 --
-UPDATE gifts SET price = 2999 WHERE id = 2 RETURNING *;
+--UPDATE gifts SET price = 2999 WHERE id = 2 RETURNING *;
+SELECT * FROM gifts WHERE id = 2;
 
 --
 \echo Delete all the gifts from Santa and return the 'price' and 'gift' of the gift you have deleted
