@@ -15,7 +15,33 @@ CREATE DATABASE regifter;
 -- giver - string
 -- value - integer
 -- previously_regifted boolean
+regifter=# CREATE TABLE gifts (id SERIAL PRIMARY KEY, gift TEXT, giver TEXT, value DECIMAL(10,2));
+CREATE TABLE
+regifter=# \d gifts
+                               Table "public.gifts"
+ Column |     Type      | Collation | Nullable |              Default
+--------+---------------+-----------+----------+-----------------------------------
+ id     | integer       |           | not null | nextval('gifts_id_seq'::regclass)
+ gift   | text          |           |          |
+ giver  | text          |           |          |
+ value  | numeric(10,2) |           |          |
+Indexes:
+    "gifts_pkey" PRIMARY KEY, btree (id)
 
+regifter=# ALTER TABLE gifts
+regifter-# ADD COLUMN regifted BOOLEAN;
+ALTER TABLE
+regifter=# \d gifts
+                                Table "public.gifts"
+  Column  |     Type      | Collation | Nullable |              Default
+----------+---------------+-----------+----------+-----------------------------------
+ id       | integer       |           | not null | nextval('gifts_id_seq'::regclass)
+ gift     | text          |           |          |
+ giver    | text          |           |          |
+ value    | numeric(10,2) |           |          |
+ regifted | boolean       |           |          |
+Indexes:
+    "gifts_pkey" PRIMARY KEY, btree (id)
 
 -- 
 \echo See details of the table you created
