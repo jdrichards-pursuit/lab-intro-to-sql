@@ -191,8 +191,14 @@ regifter=# SELECT * FROM gifts WHERE id=2;
 --
 \echo Delete all the gifts from Santa and return the 'value' and 'gift' of the gift you have deleted
 --
+regifter=# DELETE FROM gifts WHERE giver = 'Santa' RETURNING value, gift;
+  value  |     gift
+---------+--------------
+    9.00 | peach candle
+ 2999.00 | peach candle
+(2 rows)
 
-
+DELETE 2
 --
 \echo Query for all the columns in your gifts table one more time
 --
