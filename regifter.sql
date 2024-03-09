@@ -146,7 +146,14 @@ regifter=# SELECT gift FROM gifts WHERE gift ILIKE '%candle%';
 --
 \echo Query for every gift whose giver is Santa OR value is greater than 30
 --
-
+regifter=# SELECT * FROM gifts WHERE giver = 'Santa' or value > 30;
+ id |     gift     |      giver       | value | previously_regifted
+----+--------------+------------------+-------+---------------------
+  1 | peach candle | Santa            |  9.00 | t
+  2 | peach candle | Santa            |  9.00 | t
+  5 | potpurri     | Elf on the Shelf | 39.00 | t
+  6 | mango candle | The Boss         | 49.00 | f
+(4 rows)
 
 --
 \echo Query for every gift whose giver is NOT Santa
