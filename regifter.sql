@@ -176,7 +176,8 @@ regifter-# ;
 --
 \echo Update the second gift to have a value of 2999
 -- 
-
+regifter=# UPDATE gifts SET value = 2999 WHERE id = 2;
+UPDATE 1
 
 --
 \echo Query for the updated item
