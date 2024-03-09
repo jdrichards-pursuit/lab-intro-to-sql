@@ -64,7 +64,11 @@ INSERT 0 1
 --
 \echo Query for all the columns in your gifts table
 -- 
-
+regifter=# SELECT * FROM gifts;
+ id |     gift     | giver | value | regifted
+----+--------------+-------+-------+----------
+  1 | peach candle | Santa |  9.00 | t
+(1 row)
 
 --
 \echo Uncomment below to insert 5 more gifts
@@ -79,16 +83,42 @@ INSERT 0 1
 -- ('mango candle', 'The Boss', '49', FALSE)
 -- ;
 
+regifter=# ALTER TABLE gifts RENAME COLUMN regifted TO previously_regifted
+regifter-# ;
+ALTER TABLE
+regifter=# INSERT INTO gifts (gift, giver, value, previously_regifted)
+regifter-# VALUES
+regifter-# ('peach candle', 'Santa', '9', TRUE),
+regifter-# ('cinnamon candle', 'Nick', '19', TRUE),
+regifter-# ('soap on a rope', 'Rudolf', '29', FALSE),
+regifter-# ('potpurri', 'Elf on the Shelf', '39', TRUE),
+regifter-# ('mango candle', 'The Boss', '49', FALSE)
+regifter-# ;
+INSERT 0 5
+
 -- 
 \echo Insert 5 more gifts of your own choosing,  include 1 more candle
 --
-
+regifter=# INSERT INTO gifts (gift, giver, value, previously_regifted)
+regifter-# VALUES ('chocolate box', 'Alice', 15, false),
+regifter-# ('socks', 'Bob', 10, true),
+regifter-# ('coffee mug', 'Carol', 8, false),
+regifter-# ('book', 'David', 25, true),
+regifter-# ('lavender candle', 'Eve', 12, false);
+INSERT 0 5
 
 
 --
 \echo Query for gifts with a price greater than or equal to 20
 --
-
+regifter=# SELECT * FROM gifts WHERE value >= 20;
+ id |      gift      |      giver       | value | previously_regifted
+----+----------------+------------------+-------+---------------------
+  4 | soap on a rope | Rudolf           | 29.00 | f
+  5 | potpurri       | Elf on the Shelf | 39.00 | t
+  6 | mango candle   | The Boss         | 49.00 | f
+ 10 | book           | David            | 25.00 | t
+(4 rows)
 
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
