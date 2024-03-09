@@ -182,7 +182,11 @@ UPDATE 1
 --
 \echo Query for the updated item
 --
-
+regifter=# SELECT * FROM gifts WHERE id=2;
+ id |     gift     | giver |  value  | previously_regifted
+----+--------------+-------+---------+---------------------
+  2 | peach candle | Santa | 2999.00 | t
+(1 row)
 
 --
 \echo Delete all the gifts from Santa and return the 'value' and 'gift' of the gift you have deleted
