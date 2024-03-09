@@ -240,7 +240,13 @@ regifter=# SELECT AVG(value) FROM gifts;
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
 --
-
+regifter=# SELECT * FROM gifts ORDER BY value DESC LIMIT 3 OFFSET 2;
+ id |      gift       | giver  | value | previously_regifted
+----+-----------------+--------+-------+---------------------
+  4 | soap on a rope  | Rudolf | 29.00 | f
+ 10 | book            | David  | 25.00 | t
+  3 | cinnamon candle | Nick   | 19.00 | t
+(3 rows)
 --
 -- finish
 --
