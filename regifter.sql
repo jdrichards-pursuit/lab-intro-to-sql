@@ -123,7 +123,25 @@ regifter=# SELECT * FROM gifts WHERE value >= 20;
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
 --
+regifter=# SELECT gift FROM gifts WHERE gift LIKE '%candle%';
+      gift
+-----------------
+ peach candle
+ peach candle
+ cinnamon candle
+ mango candle
+ lavender candle
+(5 rows)
 
+regifter=# SELECT gift FROM gifts WHERE gift ILIKE '%candle%';
+      gift
+-----------------
+ peach candle
+ peach candle
+ cinnamon candle
+ mango candle
+ lavender candle
+(5 rows)
 
 --
 \echo Query for every gift whose giver is Santa OR value is greater than 30
