@@ -15,22 +15,13 @@ CREATE DATABASE regifter;
 -- giver - string
 -- value - integer
 -- previously_regifted boolean
-regifter=# CREATE TABLE gifts (id SERIAL PRIMARY KEY, gift TEXT, giver TEXT, value DECIMAL(10,2));
+CREATE TABLE gifts (id SERIAL PRIMARY KEY, gift TEXT, giver TEXT, value DECIMAL(10,2), regifted BOOLEAN);
 CREATE TABLE
-regifter=# \d gifts
-                               Table "public.gifts"
- Column |     Type      | Collation | Nullable |              Default
---------+---------------+-----------+----------+-----------------------------------
- id     | integer       |           | not null | nextval('gifts_id_seq'::regclass)
- gift   | text          |           |          |
- giver  | text          |           |          |
- value  | numeric(10,2) |           |          |
-Indexes:
-    "gifts_pkey" PRIMARY KEY, btree (id)
+-- 
+\echo See details of the table you created
+-- 
+\d gifts
 
-regifter=# ALTER TABLE gifts
-regifter-# ADD COLUMN regifted BOOLEAN;
-ALTER TABLE
 regifter=# \d gifts
                                 Table "public.gifts"
   Column  |     Type      | Collation | Nullable |              Default
@@ -44,19 +35,31 @@ Indexes:
     "gifts_pkey" PRIMARY KEY, btree (id)
 
 -- 
-\echo See details of the table you created
--- 
-
-
--- 
 \echo Alter the table so that the column price is changed to value 
 -- 
-
-
+-- The column is already called value, but I'll change it to price then back to value
+regifter=# ALTER TABLE gifts RENAME COLUMN value TO price
+regifter-# ;
+ALTER TABLE
+regifter=# \d gifts
+                                Table "public.gifts"
+  Column  |     Type      | Collation | Nullable |              Default
+----------+---------------+-----------+----------+-----------------------------------
+ id       | integer       |           | not null | nextval('gifts_id_seq'::regclass)
+ gift     | text          |           |          |
+ giver    | text          |           |          |
+ price    | numeric(10,2) |           |          |
+ regifted | boolean       |           |          |
+Indexes:
+    "gifts_pkey" PRIMARY KEY, btree (id)
+-- Altering back to value:
+regifter=# ALTER TABLE gifts RENAME COLUMN price TO value;
+ALTER TABLE
 -- 
 \echo Insert a peach candle, given by 'Santa' thats value is 9 and has been previously regifted
 -- 
-
+regifter=# INSERT INTO gifts (gift, giver, value, regifted) VALUES ('peach candle', 'Santa', 9, true);
+INSERT 0 1
 
 --
 \echo Query for all the columns in your gifts table
@@ -143,3 +146,4 @@ Indexes:
 -- finish
 --
 DROP TABLE IF EXISTS gifts;
+
