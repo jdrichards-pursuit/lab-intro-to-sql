@@ -251,4 +251,7 @@ regifter=# SELECT * FROM gifts ORDER BY value DESC LIMIT 3 OFFSET 2;
 -- finish
 --
 DROP TABLE IF EXISTS gifts;
-
+regifter=# DROP TABLE IF EXISTS gifts;
+DROP TABLE
+regifter=# \d gifts
+Did not find any relation named "gifts".
