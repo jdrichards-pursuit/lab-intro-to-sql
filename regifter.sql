@@ -202,7 +202,19 @@ DELETE 2
 --
 \echo Query for all the columns in your gifts table one more time
 --
-
+regifter=# SELECT * FROM gifts;
+ id |      gift       |      giver       | value | previously_regifted
+----+-----------------+------------------+-------+---------------------
+  3 | cinnamon candle | Nick             | 19.00 | t
+  4 | soap on a rope  | Rudolf           | 29.00 | f
+  5 | potpurri        | Elf on the Shelf | 39.00 | t
+  6 | mango candle    | The Boss         | 49.00 | f
+  7 | chocolate box   | Alice            | 15.00 | f
+  8 | socks           | Bob              | 10.00 | t
+  9 | coffee mug      | Carol            |  8.00 | f
+ 10 | book            | David            | 25.00 | t
+ 11 | lavender candle | Eve              | 12.00 | f
+(9 rows)
 
 
 -- BONUSES
