@@ -231,7 +231,11 @@ regifter=# SELECT COUNT(*) FROM gifts WHERE gift LIKE '%candle%';
 --
 \echo Get the AVEREAGE value from all the gifts
 --
-
+regifter=# SELECT AVG(value) FROM gifts;
+         avg
+---------------------
+ 22.8888888888888889
+(1 row)
 
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
