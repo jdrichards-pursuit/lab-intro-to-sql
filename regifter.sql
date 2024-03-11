@@ -21,8 +21,6 @@ CREATE TABLE
 \echo See details of the table you created
 -- 
 \d gifts
-
-regifter=# \d gifts
                                 Table "public.gifts"
   Column  |     Type      | Collation | Nullable |              Default
 ----------+---------------+-----------+----------+-----------------------------------
@@ -38,10 +36,9 @@ Indexes:
 \echo Alter the table so that the column price is changed to value 
 -- 
 -- The column is already called value, but I'll change it to price then back to value
-regifter=# ALTER TABLE gifts RENAME COLUMN value TO price
-regifter-# ;
+ALTER TABLE gifts RENAME COLUMN value TO price;
 ALTER TABLE
-regifter=# \d gifts
+\d gifts
                                 Table "public.gifts"
   Column  |     Type      | Collation | Nullable |              Default
 ----------+---------------+-----------+----------+-----------------------------------
@@ -53,18 +50,18 @@ regifter=# \d gifts
 Indexes:
     "gifts_pkey" PRIMARY KEY, btree (id)
 -- Altering back to value:
-regifter=# ALTER TABLE gifts RENAME COLUMN price TO value;
+ALTER TABLE gifts RENAME COLUMN price TO value;
 ALTER TABLE
 -- 
 \echo Insert a peach candle, given by 'Santa' thats value is 9 and has been previously regifted
 -- 
-regifter=# INSERT INTO gifts (gift, giver, value, regifted) VALUES ('peach candle', 'Santa', 9, true);
+INSERT INTO gifts (gift, giver, value, regifted) VALUES ('peach candle', 'Santa', 9, true);
 INSERT 0 1
 
 --
 \echo Query for all the columns in your gifts table
 -- 
-regifter=# SELECT * FROM gifts;
+SELECT * FROM gifts;
  id |     gift     | giver | value | regifted
 ----+--------------+-------+-------+----------
   1 | peach candle | Santa |  9.00 | t
@@ -83,35 +80,33 @@ regifter=# SELECT * FROM gifts;
 -- ('mango candle', 'The Boss', '49', FALSE)
 -- ;
 
-regifter=# ALTER TABLE gifts RENAME COLUMN regifted TO previously_regifted
-regifter-# ;
+ALTER TABLE gifts RENAME COLUMN regifted TO previously_regifted;
 ALTER TABLE
-regifter=# INSERT INTO gifts (gift, giver, value, previously_regifted)
-regifter-# VALUES
-regifter-# ('peach candle', 'Santa', '9', TRUE),
-regifter-# ('cinnamon candle', 'Nick', '19', TRUE),
-regifter-# ('soap on a rope', 'Rudolf', '29', FALSE),
-regifter-# ('potpurri', 'Elf on the Shelf', '39', TRUE),
-regifter-# ('mango candle', 'The Boss', '49', FALSE)
-regifter-# ;
+INSERT INTO gifts (gift, giver, value, previously_regifted)
+VALUES
+('peach candle', 'Santa', '9', TRUE),
+('cinnamon candle', 'Nick', '19', TRUE),
+('soap on a rope', 'Rudolf', '29', FALSE),
+('potpurri', 'Elf on the Shelf', '39', TRUE),
+('mango candle', 'The Boss', '49', FALSE);
 INSERT 0 5
 
 -- 
 \echo Insert 5 more gifts of your own choosing,  include 1 more candle
 --
-regifter=# INSERT INTO gifts (gift, giver, value, previously_regifted)
-regifter-# VALUES ('chocolate box', 'Alice', 15, false),
-regifter-# ('socks', 'Bob', 10, true),
-regifter-# ('coffee mug', 'Carol', 8, false),
-regifter-# ('book', 'David', 25, true),
-regifter-# ('lavender candle', 'Eve', 12, false);
+INSERT INTO gifts (gift, giver, value, previously_regifted)
+VALUES ('chocolate box', 'Alice', 15, false),
+('socks', 'Bob', 10, true),
+('coffee mug', 'Carol', 8, false),
+('book', 'David', 25, true),
+('lavender candle', 'Eve', 12, false);
 INSERT 0 5
 
 
 --
 \echo Query for gifts with a price greater than or equal to 20
 --
-regifter=# SELECT * FROM gifts WHERE value >= 20;
+SELECT * FROM gifts WHERE value >= 20;
  id |      gift      |      giver       | value | previously_regifted
 ----+----------------+------------------+-------+---------------------
   4 | soap on a rope | Rudolf           | 29.00 | f
@@ -123,7 +118,7 @@ regifter=# SELECT * FROM gifts WHERE value >= 20;
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
 --
-regifter=# SELECT gift FROM gifts WHERE gift LIKE '%candle%';
+SELECT gift FROM gifts WHERE gift LIKE '%candle%';
       gift
 -----------------
  peach candle
@@ -133,7 +128,7 @@ regifter=# SELECT gift FROM gifts WHERE gift LIKE '%candle%';
  lavender candle
 (5 rows)
 
-regifter=# SELECT gift FROM gifts WHERE gift ILIKE '%candle%';
+SELECT gift FROM gifts WHERE gift ILIKE '%candle%';
       gift
 -----------------
  peach candle
@@ -146,7 +141,7 @@ regifter=# SELECT gift FROM gifts WHERE gift ILIKE '%candle%';
 --
 \echo Query for every gift whose giver is Santa OR value is greater than 30
 --
-regifter=# SELECT * FROM gifts WHERE giver = 'Santa' or value > 30;
+SELECT * FROM gifts WHERE giver = 'Santa' or value > 30;
  id |     gift     |      giver       | value | previously_regifted
 ----+--------------+------------------+-------+---------------------
   1 | peach candle | Santa            |  9.00 | t
@@ -158,8 +153,7 @@ regifter=# SELECT * FROM gifts WHERE giver = 'Santa' or value > 30;
 --
 \echo Query for every gift whose giver is NOT Santa
 --
-regifter=# SELECT * FROM gifts WHERE NOT (giver = 'Santa')
-regifter-# ;
+SELECT * FROM gifts WHERE NOT (giver = 'Santa');
  id |      gift       |      giver       | value | previously_regifted
 ----+-----------------+------------------+-------+---------------------
   3 | cinnamon candle | Nick             | 19.00 | t
@@ -176,13 +170,13 @@ regifter-# ;
 --
 \echo Update the second gift to have a value of 2999
 -- 
-regifter=# UPDATE gifts SET value = 2999 WHERE id = 2;
+UPDATE gifts SET value = 2999 WHERE id = 2;
 UPDATE 1
 
 --
 \echo Query for the updated item
 --
-regifter=# SELECT * FROM gifts WHERE id=2;
+SELECT * FROM gifts WHERE id=2;
  id |     gift     | giver |  value  | previously_regifted
 ----+--------------+-------+---------+---------------------
   2 | peach candle | Santa | 2999.00 | t
@@ -191,7 +185,7 @@ regifter=# SELECT * FROM gifts WHERE id=2;
 --
 \echo Delete all the gifts from Santa and return the 'value' and 'gift' of the gift you have deleted
 --
-regifter=# DELETE FROM gifts WHERE giver = 'Santa' RETURNING value, gift;
+DELETE FROM gifts WHERE giver = 'Santa' RETURNING value, gift;
   value  |     gift
 ---------+--------------
     9.00 | peach candle
@@ -202,7 +196,7 @@ DELETE 2
 --
 \echo Query for all the columns in your gifts table one more time
 --
-regifter=# SELECT * FROM gifts;
+SELECT * FROM gifts;
  id |      gift       |      giver       | value | previously_regifted
 ----+-----------------+------------------+-------+---------------------
   3 | cinnamon candle | Nick             | 19.00 | t
@@ -222,7 +216,7 @@ regifter=# SELECT * FROM gifts;
 --
  \echo Count the total number of gifts that have the word candle in it
 -- 
-regifter=# SELECT COUNT(*) FROM gifts WHERE gift LIKE '%candle%';
+SELECT COUNT(*) FROM gifts WHERE gift LIKE '%candle%';
  count
 -------
      3
@@ -231,7 +225,7 @@ regifter=# SELECT COUNT(*) FROM gifts WHERE gift LIKE '%candle%';
 --
 \echo Get the AVEREAGE value from all the gifts
 --
-regifter=# SELECT AVG(value) FROM gifts;
+SELECT AVG(value) FROM gifts;
          avg
 ---------------------
  22.8888888888888889
@@ -240,7 +234,7 @@ regifter=# SELECT AVG(value) FROM gifts;
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
 --
-regifter=# SELECT * FROM gifts ORDER BY value DESC LIMIT 3 OFFSET 2;
+SELECT * FROM gifts ORDER BY value DESC LIMIT 3 OFFSET 2;
  id |      gift       | giver  | value | previously_regifted
 ----+-----------------+--------+-------+---------------------
   4 | soap on a rope  | Rudolf | 29.00 | f
@@ -251,7 +245,7 @@ regifter=# SELECT * FROM gifts ORDER BY value DESC LIMIT 3 OFFSET 2;
 -- finish
 --
 DROP TABLE IF EXISTS gifts;
-regifter=# DROP TABLE IF EXISTS gifts;
+DROP TABLE IF EXISTS gifts;
 DROP TABLE
-regifter=# \d gifts
+\d gifts
 Did not find any relation named "gifts".
